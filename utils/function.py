@@ -1,5 +1,4 @@
 import json
-from class_category import Category
 
 
 def list_products():
@@ -9,4 +8,3 @@ def list_products():
     """
     with open('products.json', 'r', encoding='utf-8') as file:
         return json.load(file)
-

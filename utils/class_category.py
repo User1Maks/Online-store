@@ -6,7 +6,8 @@ class Category:
     description: str
     products: list
     number_of_categories: int  # общее количество категорий
-    number_of_unique_products: int  # общее количество уникальных продуктов, не учитывая количество в наличии
+    number_of_unique_products: int  # общее количество уникальных продуктов,
+    # не учитывая количество в наличии
 
     number_of_categories = 0
     number_of_unique_products = 0
@@ -25,4 +26,6 @@ class Category:
         Category.number_of_unique_products += len(products)
 
     def __repr__(self):
-        return f'Название товара: {self.name}.\nОписание товара: {self.description}.\nСписок товаров: {self.products}.'
+        return (f'Название товара: {self.name}.\n'
+                f'Описание товара: {self.description}.\n'
+                f'Список товаров: {self.products}.')
