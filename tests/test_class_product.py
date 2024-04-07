@@ -25,7 +25,7 @@ def test_price():
 
 
 @pytest.fixture()
-def dict_product():
+def list_product():
     return [{'name': 'Samsung Galaxy C23 Ultra',
              'description': '512GB, Gray space',
              'price': 210000.0,
@@ -33,7 +33,7 @@ def dict_product():
              },
             {'name': 'Samsung Galaxy C30 Ultra',
              'description': '812GB, Red',
-             'price': 280000.0,
+             'price': 380000.0,
              'quantity': 10
              },
             {'name': 'Samsung Galaxy C30 Ultra',
@@ -49,30 +49,30 @@ def dict_product():
             ]
 
 
-def test_product_creation(dict_product):
+def test_product_creation(list_product):
     """Тест создания товара и проверка условий разницы цен, наличии такого
     же товара на складе. Проверка описания товара"""
-    dict_1 = Product.product_creation(dict_product[0])
-    assert dict_1.name == 'Samsung Galaxy C23 Ultra'
-    assert dict_1.description == '512GB, Gray space'
-    assert dict_1.price == 210000.0
-    assert dict_1.quantity == 8
+    list_1 = Product.product_creation(list_product[0])
+    assert list_1.name == 'Samsung Galaxy C23 Ultra'
+    assert list_1.description == '512GB, Gray space'
+    assert list_1.price == 210000.0
+    assert list_1.quantity == 8
 
-    dict_2 = Product.product_creation(dict_product[1])
-    assert dict_2.name == 'Samsung Galaxy C30 Ultra'
-    assert dict_2.description == '812GB, Red'
-    assert dict_2.price == 280000.0
-    assert dict_2.quantity == 10
+    list_2 = Product.product_creation(list_product[1])
+    assert list_2.name == 'Samsung Galaxy C30 Ultra'
+    assert list_2.description == '812GB, Red'
+    assert list_2.price == 380000.0
+    assert list_2.quantity == 10
 
-    dict_3 = Product.product_creation(dict_product[2])
+    dict_3 = Product.product_creation(list_product[2])
     assert dict_3.name == 'Samsung Galaxy C30 Ultra'
     assert dict_3.description == '812GB, Red'
-    assert dict_3.price == 280000.0
+    assert dict_3.price == 380000.0
     assert dict_3.quantity == 20
 
-    dict_4 = Product.product_creation(dict_product[3])
-    assert dict_4.name == 'Samsung Galaxy C23 Ultra'
-    assert dict_4.description == '512GB, Gray space'
-    assert dict_4.price == 210000.0
-    assert dict_4.quantity == 16
+    list_4 = Product.product_creation(list_product[3])
+    assert list_4.name == 'Samsung Galaxy C23 Ultra'
+    assert list_4.description == '512GB, Gray space'
+    assert list_4.price == 210000.0
+    assert list_4.quantity == 16
 
