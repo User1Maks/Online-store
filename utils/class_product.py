@@ -45,7 +45,7 @@ class Product:
         return cls(name, description, price, quantity)
 
     @property
-    def price(self):
+    def price(self) -> float:
         """
         Декоратор для возращения цены продукта.
         :return: Цена продукта.
@@ -68,18 +68,31 @@ class Product:
             if user_input == 'y' or 'yes':
                 self.__price = new_price
         else:
-            self.__price = new_price
+            self.__price = self.__price
 
     @price.deleter
-    def price(self):
+    def price(self) -> None:
         """
         Удаляем цену продукта.
         :return: None
         """
         del self.__price
 
+    def __add__(self, other) -> float:
+        """ Метод для определения полной стоимости товаров на складе """
+        return self.__price * self.quantity + other.__price * self.quantity
+
+    def __str__(self) -> str:
+        """
+        Метод для возвращения строки в заданном формате.
+        Пример: "Название продукта, 80 руб. Остаток: 15 шт."
+        return: str
+        """
+        return f'{self.name}, {self.__price} руб. Остаток: {self.quantity}'
+
     def __repr__(self):
-        return (f'Название продута: {self.name}.\n'
-                f'Описание продукта: {self.description}.'
-                f'Цена продукта: {self.price}.\n'
-                f'Количество продуктов в наличии: {self.quantity}.')
+        return (f'{self.__class__.__name__}:\n'
+                f'-Название продута: {self.name}.\n'
+                f'-Описание продукта: {self.description}.\n'
+                f'-Цена продукта: {self.price}.\n'
+                f'-Количество продуктов в наличии: {self.quantity}.\n')
