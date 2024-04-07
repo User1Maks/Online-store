@@ -32,18 +32,22 @@ class Category:
         Category.list_name.append(self.name)  # при инициализации нового
         # товара добавляем его в список list_name
 
-    def app_products(self, product):
+    def add_products(self, new_product):
         """
-        Метод для добавления товаров в список.
+        Метод для добавления товара в список товаров
+        данной категории.
+        :param new_product: Экземпляр класса Product.
         """
-        for new_product in product:
+        if isinstance(new_product, Category):
             self.__products.append(new_product)
+
+        raise TypeError('Ошибка!')
 
     @property
     def products(self) -> list:
         """
-        Преобразуем список товаров в необходимый формат.
-        Пример: "Продукт, 80 руб. Остаток: 15 шт."
+        Геттер для возврата списка описаний продуктов текущей категории.
+        :return: Список с описанием продуктов.
         """
 
         list_pr = []
