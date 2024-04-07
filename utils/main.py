@@ -4,7 +4,7 @@ from class_category import Category
 
 
 def main():
-    list_json = list_products()
+    list_json = list_products()  # список продукта с полным его описанием
     category_list = []
 
     for category in list_json:
