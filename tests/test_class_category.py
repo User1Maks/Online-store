@@ -22,7 +22,7 @@ def test_init(category):
 
 
 @pytest.fixture()
-def dict_products():
+def list_products():
     product1 = Category('Смартфоны',
                         'Смартфоны, как средство не только коммуникации,'
                         'но и получение дополнительных функций для '
@@ -36,10 +36,10 @@ def dict_products():
                         ['55" QLED 4K']
                         )
 
-    dict_name = [product1.name, product2.name]
-    return dict_name
+    list_name = [product1.name, product2.name]
+    return list_name
 
 
-def test_len(dict_products):
+def test_len(list_products):
     """Тест для проверки подсчета количества товара на складе"""
-    assert len(dict_products) == 2
+    assert len(list_products) == 2

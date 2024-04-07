@@ -1,6 +1,6 @@
 class Product:
     """
-    Класс продуктов.
+    Класс продуктов. Имеет два класса наследника: Smartphone и LawnGrass.
     """
     name: str
     description: str
@@ -80,7 +80,10 @@ class Product:
 
     def __add__(self, other) -> float:
         """ Метод для определения полной стоимости товаров на складе """
-        return self.__price * self.quantity + other.__price * self.quantity
+        if isinstance(other, self.__class__):
+            return self.__price * self.quantity + other.__price * self.quantity
+
+        raise TypeError(type)
 
     def __str__(self) -> str:
         """
@@ -96,3 +99,46 @@ class Product:
                 f'-Описание продукта: {self.description}.\n'
                 f'-Цена продукта: {self.price}.\n'
                 f'-Количество продуктов в наличии: {self.quantity}.\n')
+
+
+class Smartphone(Product):
+    """ Класс 'смартфоны', дочерний от класса продуктов """
+
+    performance: str  # производительность
+    model: str  # модель смартфона
+    memory: str  # объем встроенной памяти
+    color: str  # цвет
+
+    def __init__(self, name, description, price,
+                 quantity, performance, model, memory, color):
+        super().__init__(name, description, price, quantity)
+        self.performance = performance
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+    def __repr__(self):
+        """ Метод для отладки категории Smartphone"""
+
+        return (f'{self.__class__.__name__}: {self.performance},'
+                f'{self.model}, {self.memory}, {self.color}')
+
+
+class LawnGrass(Product):
+    """ Класс 'трава газонная', дочерний от класса продуктов """
+
+    manufacturer_country: str  # страна изготовитель
+    germination_period: str  # срок прорастания
+    color: str  # цвет
+
+    def __init__(self, name, description, price, quantity,
+                 manufacturer_country, germination_period, color):
+        super().__init__(name, description, price, quantity)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
+        self.color = color
+
+    def __repr__(self):
+        """ Метод для отладки категории LawnGrass"""
+        return (f'{self.__class__.__name__}: {self.manufacturer_country},'
+                f'{self.germination_period}, {self.color}')
