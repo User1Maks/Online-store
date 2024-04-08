@@ -25,7 +25,7 @@ def main():
 
         category_list.append(product)
 
-    print(f'Общее количество категорий: {Category.number_of_categories}\n'
+    print(f'Общее количество категорий: {len(category_list)}\n'
           f'Общее количество уникальных продуктов: '
           f'{Category.number_of_unique_products}')
     print(category_list)

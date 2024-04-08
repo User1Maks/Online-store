@@ -1,6 +1,3 @@
-from utils.class_product import Product
-
-
 class Category:
     """
     Класс категорий продуктов.
@@ -8,14 +5,10 @@ class Category:
     name: str
     description: str
     __products: list
-    number_of_categories: int  # общее количество категорий
     number_of_unique_products: int  # общее количество уникальных продуктов,
     # не учитывая количество в наличии
 
-    number_of_categories = 0
     number_of_unique_products = 0
-
-    list_name = []  # атрибут на уровне класса, содержащий список категорий
 
     def __init__(self, name: str, description: str, products: list):
         """
@@ -27,10 +20,7 @@ class Category:
         self.description = description
         self.__products = products
 
-        Category.number_of_categories += 1
         Category.number_of_unique_products += len(products)
-        Category.list_name.append(self.name)  # при инициализации нового
-        # товара добавляем его в список list_name
 
     def add_products(self, new_product):
         """
@@ -60,12 +50,9 @@ class Category:
         Метод для подсчета количества товара на складе.
         :return: Количество продуктов.
         """
-        list_products = Product.list_product  # список продуктов
-        # с полным их описанием
         count_quantity = 0
-        for products in list_products:
-            for quantity in products:
-                count_quantity += quantity['quantity']
+        for products in self.__products:
+            count_quantity += products.quantity
         return count_quantity
 
     def __str__(self) -> str:
@@ -75,7 +62,7 @@ class Category:
         return: str
         """
         return f'{self.__class__.__name__},\
-                количество продуктов: {Category.__len__} шт.'
+                количество продуктов: {len(self)} шт.'
 
     def __repr__(self):
         return (f'{self.__class__.__name__}:\n'
