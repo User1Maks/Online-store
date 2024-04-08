@@ -52,7 +52,7 @@ class Category:
         """
         count_quantity = 0
         for products in self.__products:
-            count_quantity += products.quantity
+            count_quantity += products['quantity']
         return count_quantity
 
     def __str__(self) -> str:
@@ -69,3 +69,4 @@ class Category:
                 f'-Название товара: {self.name}.\n'
                 f'-Описание товара: {self.description}.\n'
                 f'-Список товаров: {self.__products}.\n')
+
