@@ -1,3 +1,6 @@
+from utils.class_product import Product
+
+
 class Category:
     """
     Класс категорий продуктов.
@@ -10,7 +13,7 @@ class Category:
 
     number_of_unique_products = 0
 
-    def __init__(self, name: str, description: str, products: list):
+    def __init__(self, name: str, description: str, products: list[Product]):
         """
         :param name: название товара.
         :param description: Описание товара.
@@ -22,7 +25,7 @@ class Category:
 
         Category.number_of_unique_products += len(products)
 
-    def add_products(self, new_product):
+    def add_products(self, new_product) -> None:
         """
         Метод для добавления товара в список товаров
         данной категории.
@@ -51,8 +54,9 @@ class Category:
         :return: Количество продуктов.
         """
         count_quantity = 0
+
         for products in self.__products:
-            count_quantity += products['quantity']
+            count_quantity += products.quantity
         return count_quantity
 
     def __str__(self) -> str:
@@ -61,12 +65,26 @@ class Category:
         Пример: "Название категории, количество продуктов: 200 шт.."
         return: str
         """
-        return f'{self.__class__.__name__},\
-                количество продуктов: {len(self)} шт.'
+        return f'{self.name}, количество продуктов: {len(self)} шт.'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return (f'{self.__class__.__name__}:\n'
                 f'-Название товара: {self.name}.\n'
                 f'-Описание товара: {self.description}.\n'
                 f'-Список товаров: {self.__products}.\n')
 
+
+#  код для проверки функции __len__
+if __name__ == '__main__':
+    pt1 = Category('Смартфоны',
+                   'Смартфоны, как средство не только коммуникации',
+                   [Product("Samsung Galaxy C23 Ultra",
+                            "256GB, Серый цвет, 200MP камера",
+                            180000.0, 5),
+                    Product("Xiaomi Redmi Note 11",
+                            "1024GB, Синий",
+                            31000.0,
+                            14)
+                    ])
+
+    print(len(pt1))
