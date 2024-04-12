@@ -1,4 +1,29 @@
-class Product:
+from abc import ABC, abstractmethod
+
+
+class Assortment(ABC):
+    """
+     Абстрактный метод для онлайн магазина. Содержит общие методы
+     для продуктов.
+    """
+
+    @abstractmethod
+    def __str__(self):
+        """
+        Метод для вывода информации о названии продукта, его цене и количестве
+        оставшегося продукта на складе.
+        """
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        """
+        Метод для подсчета полной стоимости продуктов категории на складе.
+        """
+        pass
+
+
+class Product(Assortment):
     """
     Класс продуктов. Имеет два класса наследника: Smartphone и LawnGrass.
     """
@@ -25,7 +50,7 @@ class Product:
         Product.list_product.append(self)
 
     @classmethod
-    def product_creation(cls, new_product: dict):
+    def product_creation(cls, new_product: dict) -> object:
         """
         Метод, который создает товар и возвращает объект.
         Который можно добавлять в список товаров.
@@ -53,9 +78,9 @@ class Product:
         return self.__price
 
     @price.setter
-    def price(self, new_price):
+    def price(self, new_price) -> None:
         """
-        Сеттер для подтверждения корректности введенной цены и ее понижения
+        Сеттер для подтверждения корректности введенной цены или ее понижения
         при необходимости.
         :param new_price: Новая цена.
         """
@@ -67,8 +92,6 @@ class Product:
                                '\n n - отменить').lower().strip()
             if user_input == 'y' or 'yes':
                 self.__price = new_price
-        else:
-            self.__price = self.__price
 
     @price.deleter
     def price(self) -> None:
@@ -80,10 +103,12 @@ class Product:
 
     def __add__(self, other) -> float:
         """ Метод для определения полной стоимости товаров на складе """
-        if isinstance(other, self.__class__):
-            return self.__price * self.quantity + other.__price * self.quantity
 
-        raise TypeError(type)
+        if type(self) is type(other):
+            return (self.__price * self.quantity +
+                    other.__price * self.quantity)
+        else:
+            raise TypeError
 
     def __str__(self) -> str:
         """
@@ -93,7 +118,7 @@ class Product:
         """
         return f'{self.name}, {self.__price} руб. Остаток: {self.quantity}'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return (f'{self.__class__.__name__}:\n'
                 f'-Название продута: {self.name}.\n'
                 f'-Описание продукта: {self.description}.\n'
@@ -117,7 +142,7 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """ Метод для отладки категории Smartphone"""
 
         return (f'{self.__class__.__name__}: {self.performance},'
@@ -138,7 +163,40 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         self.color = color
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """ Метод для отладки категории LawnGrass"""
         return (f'{self.__class__.__name__}: {self.manufacturer_country},'
                 f'{self.germination_period}, {self.color}')
+
+
+#  для проверки функции add
+if __name__ == '__main__':
+    pr1 = Product('Samsung Galaxy C23 Ultra',
+                  '256GB, Серый цвет, 200MP камера',
+                  40,
+                  10)
+
+    pr2 = Product('Samsung Galaxy C30 Ultra',
+                  '256GB, Серый цвет, 200MP камера',
+                  10,
+                  10)
+
+    pr3 = Smartphone('Samsung Galaxy C30 Ultra',
+                     '256GB, Серый цвет, 200MP камера',
+                     10,
+                     10,
+                     'max',
+                     '30 as',
+                     250,
+                     'red')
+    pr4 = LawnGrass('трава',
+                    'travka',
+                    100,
+                    5,
+                    'Russia',
+                    5,
+                    'green')
+
+    print(pr1 + pr2)
+    # print(pr1 + pr3)  # ошибка TypeError
+    # print(pr1 + pr4)  # ошибка TypeError
