@@ -1,6 +1,6 @@
-from function import list_products
-from class_product import Product
-from class_category import Category
+from utils.function import list_products
+from utils.class_product import Product
+from utils.class_category import Category
 
 
 def main():
@@ -9,21 +9,20 @@ def main():
 
     for category in list_json:
         products_list = []
-        for products in category['products']:
-            product_append = Product(products['name'],
-                                     products['description'],
-                                     products['price'],
-                                     products['quantity']
+        for product in category['products']:
+            product_append = Product(product['name'],
+                                     product['description'],
+                                     product['price'],
+                                     product['quantity']
                                      )
             products_list.append(product_append)
 
-        product = Category(category['name'],
-                           category['description'],
-                           products_list
+        new_category = Category(category['name'],
+                                category['description'],
+                                products_list
+                                )
 
-                           )
-
-        category_list.append(product)
+        category_list.append(new_category)
 
     print(f'Общее количество категорий: {len(category_list)}\n'
           f'Общее количество уникальных продуктов: '
