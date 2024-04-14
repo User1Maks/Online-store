@@ -79,22 +79,12 @@ class MixinRepr:
      что был создан объект.
     """
 
-    def printing(self, init):
+    def __init__(self):
         """
-        Декоратор "printing", который принимает функцию "init"
+        Инициализация класса MixinRepr. При каждой инициализации нового объекта
+        будет выводиться информация о продукте.
         """
-
-        def print_info(*args, **kwargs):
-            """
-            Функция для вызова функции "printing" с аргументами *args и **kwargs
-            :param args: Позиционный аргумент.
-            :param kwargs: Аргументы по ключам.
-            """
-            result = init(*args, **kwargs)
-            print(repr(self))
-            return result
-
-        return print_info
+        print(repr(self))
 
 
 class Product(Assortment, MixinRepr):
@@ -255,31 +245,3 @@ class LawnGrass(Product):
     #     """ Метод для отладки категории LawnGrass"""
     #     return (f'{self.__class__.__name__}: {self.manufacturer_country},'
     #             f'{self.germination_period}, {self.color}')
-
-
-#  для проверки MixinRepr
-if __name__ == '__main__':
-    pr1 = Product('Samsung Galaxy C23 Ultra',
-                  '256GB, Серый цвет, 200MP камера',
-                  18000,
-                  5)
-    pr2 = Smartphone('Iphone 15',
-                     '512GB, Gray space',
-                     21000,
-                     5,
-                     250,
-                     'Pro max',
-                     256,
-                     'red')
-    pr3 = LawnGrass('Трава',
-                    'Газонная трава',
-                    1500,
-                    600,
-                    'Russia',
-                    '2 недели',
-                    'green')
-    print(pr1.printing)
-
-    print(pr2.printing)
-
-    print(pr3.printing)
