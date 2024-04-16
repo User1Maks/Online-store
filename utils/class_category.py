@@ -17,7 +17,7 @@ class Category:
         """
         :param name: название товара.
         :param description: Описание товара.
-        :param products: Список товаров.
+        :param products: Список продуктов.
         """
         self.name = name
         self.description = description
@@ -31,10 +31,31 @@ class Category:
         данной категории.
         :param new_product: Экземпляр класса Product.
         """
+        if new_product.quantity <= 0:
+            raise ValueError(
+                'Товар с нулевым количеством не может быть добавлен.')
+
         if isinstance(new_product, Category):
             self.__products.append(new_product)
 
-        raise TypeError('Ошибка!')
+        raise TypeError('Ошибка! Товар не относится к данной категории.')
+
+    def average_price(self):
+        """Функция для определения средней цены всех товаров"""
+
+        total_price = 0  # Общая цена всех продуктов
+
+        try:
+            for product in self.__products:
+                total_price += product.price
+            average_price = total_price / len(self.__products)
+            return round(average_price, 2)
+
+        except ZeroDivisionError:
+            """
+            Если сумма всех товаров будет делиться на ноль, функция вернет ноль
+            """
+            return 0
 
     @property
     def products(self) -> list:
@@ -74,17 +95,28 @@ class Category:
                 f'-Список товаров: {self.__products}.\n')
 
 
-#  код для проверки функции __len__
+# Проверка функции average_price
 if __name__ == '__main__':
-    pt1 = Category('Смартфоны',
-                   'Смартфоны, как средство не только коммуникации',
-                   [Product("Samsung Galaxy C23 Ultra",
-                            "256GB, Серый цвет, 200MP камера",
-                            180000.0, 6),
-                    Product("Xiaomi Redmi Note 11",
-                            "1024GB, Синий",
-                            31000.0,
-                            14)
+    cat1 = Category('Смартфоны',
+                    'Смартфоны, как средство не только коммуникации, '
+                    'но и получение дополнительных функций для удобства жизни',
+                    [
+                        Product("Samsung Galaxy C23 Ultra",
+                                "256GB, Серый цвет, 200MP камера",
+                                10.0,
+                                5
+                                ),
+                        Product(
+                            "Iphone 15",
+                            "512GB, Gray space",
+                            20.0,
+                            8
+                        )
                     ])
 
-    print(len(pt1))
+    cat2 = Category('Смартфоны',
+                    'Смартфоны, как средство не только коммуникации, '
+                    'но и получение дополнительных функций для удобства жизни',
+                    [])
+    print(f' Category1 {cat1.average_price()}')  # Выводит 15
+    print(f' Category2 {cat2.average_price()}')  # Выводит 0
